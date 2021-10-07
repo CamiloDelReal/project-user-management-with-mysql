@@ -1,0 +1,21 @@
+server:
+  port: 8095
+
+spring:
+  application:
+    name: user-management-with-jpa-and-tests
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/users_database?serverTimezone=UTC
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+security:
+  token-type: Bearer
+  token-key: 123456
+  authorities-key: authorities
+  separator: --
+  validity: 10000000
