@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -32,7 +33,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilter(provideAuthorizationFilter());
+                .addFilterBefore(provideAuthorizationFilterBeforeAuth(), BasicAuthenticationFilter.class);/*
+                .addFilter(provideAuthorizationFilterReplacingAuth());*/
     }
 
     @Override
@@ -52,7 +54,13 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public AuthorizationFilter provideAuthorizationFilter() throws Exception {
-        return new AuthorizationFilter(authenticationManager(), userService);
+    public AuthorizationFilterBeforeAuth provideAuthorizationFilterBeforeAuth() {
+        return new AuthorizationFilterBeforeAuth(userService);
     }
+
+    @Bean
+    public AuthorizationFilterReplacingAuth provideAuthorizationFilterReplacingAuth() throws Exception {
+        return new AuthorizationFilterReplacingAuth(authenticationManager(), userService);
+    }
+
 }

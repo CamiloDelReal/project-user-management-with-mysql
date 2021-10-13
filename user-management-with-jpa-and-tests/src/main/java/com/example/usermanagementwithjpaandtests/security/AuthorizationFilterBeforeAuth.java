@@ -8,16 +8,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -25,9 +22,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
-public class AuthorizationFilter extends BasicAuthenticationFilter {
+public class AuthorizationFilterBeforeAuth implements Filter {
 
-    private final Logger logger = LoggerFactory.getLogger(AuthorizationFilter.class);
+    private final Logger logger = LoggerFactory.getLogger(AuthorizationFilterBeforeAuth.class);
     private final UserService userService;
 
     @Value("${security.token-type}")
@@ -37,13 +34,35 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
     @Value("${security.separator}")
     private String separator;
 
-    public AuthorizationFilter(AuthenticationManager authenticationManager, UserService userService) {
-        super(authenticationManager);
+//    public AuthorizationFilter(AuthenticationManager authenticationManager, UserService userService) {
+//        super(authenticationManager);
+//        this.userService = userService;
+//    }
+
+    public AuthorizationFilterBeforeAuth(UserService userService) {
         this.userService = userService;
     }
 
+//    @Override
+//    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+//        String headerAuthorization = request.getHeader(HttpHeaders.AUTHORIZATION);
+//        if(headerAuthorization != null && headerAuthorization.startsWith(tokenType)) {
+//            UsernamePasswordAuthenticationToken authentication = getAuthentication(request);
+//            if(authentication != null) {
+//                SecurityContextHolder.getContext().setAuthentication(authentication);
+//            } else {
+//                // Unauthorize wrong credentials, doesn't matter what
+//                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+//                return;
+//            }
+//        } // We will allow anonymous authentication, prefilter will handle authorization
+//        super.doFilterInternal(request, response, chain);
+//    }
+
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
         String headerAuthorization = request.getHeader(HttpHeaders.AUTHORIZATION);
         if(headerAuthorization != null && headerAuthorization.startsWith(tokenType)) {
             UsernamePasswordAuthenticationToken authentication = getAuthentication(request);
@@ -55,7 +74,7 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
                 return;
             }
         } // We will allow anonymous authentication, prefilter will handle authorization
-        super.doFilterInternal(request, response, chain);
+        filterChain.doFilter(request, response);
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
