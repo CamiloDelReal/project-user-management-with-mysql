@@ -2,10 +2,9 @@ package com.example.usermanagementwithjpaandtests.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
-import org.hibernate.annotations.CollectionId;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Getter
 @Setter
@@ -37,9 +36,9 @@ public class User {
     joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     @JsonBackReference
-    private Set<Role> roles;
+    private List<Role> roles;
 
-    public User(String firstName, String lastName, String email, String protectedPassword, Set<Role> roles) {
+    public User(String firstName, String lastName, String email, String protectedPassword, List<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

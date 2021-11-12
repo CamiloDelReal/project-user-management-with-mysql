@@ -89,7 +89,7 @@ public class UserManagementController {
                 Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
                 if(!wannaCreateAdmin || (principal != null && principal instanceof User && userService.hasAdminRole((User) principal))) {
                     UserResponse user = userService.createUser(userRequest);
-                    response = ResponseEntity.ok(user);
+                    response = new ResponseEntity<>(user, HttpStatus.CREATED);
                 } else {
                     response = new ResponseEntity<>(HttpStatus.FORBIDDEN);
                 }

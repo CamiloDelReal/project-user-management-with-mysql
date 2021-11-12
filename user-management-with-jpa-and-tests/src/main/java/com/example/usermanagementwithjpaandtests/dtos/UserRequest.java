@@ -3,7 +3,7 @@ package com.example.usermanagementwithjpaandtests.dtos;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
-import java.util.Set;
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,5 +23,12 @@ public class UserRequest {
     @NotNull(message = "Password cannot be empty")
     private String password;
 
-    private Set<Long> roles;
+    private List<String> roles;
+
+    public UserRequest(String firstName, String lastName, String email, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+    }
 }

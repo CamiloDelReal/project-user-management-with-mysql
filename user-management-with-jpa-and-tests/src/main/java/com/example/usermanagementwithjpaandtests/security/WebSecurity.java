@@ -58,9 +58,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         return new AuthorizationFilterBeforeAuth(userService);
     }
 
-    @Bean
-    public AuthorizationFilterReplacingAuth provideAuthorizationFilterReplacingAuth() throws Exception {
-        return new AuthorizationFilterReplacingAuth(authenticationManager(), userService);
-    }
+//    @Bean
+//    public AuthorizationFilterReplacingAuth provideAuthorizationFilterReplacingAuth() throws Exception {
+//        return new AuthorizationFilterReplacingAuth(authenticationManager(), userService);
+//    }
 
 }

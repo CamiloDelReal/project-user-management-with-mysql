@@ -2,7 +2,6 @@ package com.example.usermanagementwithjpaandtests.entities;
 
 import lombok.*;
 
-import javax.annotation.security.DenyAll;
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -20,6 +19,8 @@ public class UserRole {
 
     @Getter
     @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
     @Embeddable
     public static class UserRoleId implements Serializable {
         @Column(name = "user_id")

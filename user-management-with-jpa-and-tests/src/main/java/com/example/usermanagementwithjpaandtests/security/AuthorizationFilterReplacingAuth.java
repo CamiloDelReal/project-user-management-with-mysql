@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Component
+//@Component
 public class AuthorizationFilterReplacingAuth extends BasicAuthenticationFilter {
 
     private final Logger logger = LoggerFactory.getLogger(AuthorizationFilterBeforeAuth.class);

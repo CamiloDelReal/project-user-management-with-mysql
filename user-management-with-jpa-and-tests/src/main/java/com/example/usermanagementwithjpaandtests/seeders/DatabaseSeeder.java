@@ -10,7 +10,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.Set;
+import java.util.List;
 
 @Component
 public class DatabaseSeeder {
@@ -44,7 +44,7 @@ public class DatabaseSeeder {
     private void seedUsers() {
         if(userRepository.count() == 0) {
             Role administratorRole = roleRepository.findByName(Role.ADMINISTRATOR).orElse(null);
-            User administratorUser = new User("Administrator", "Root", "root@gmail.com", passwordEncoder.encode("root"), Set.of(administratorRole));
+            User administratorUser = new User("Administrator", "Root", "root@gmail.com", passwordEncoder.encode("root"), List.of(administratorRole));
             userRepository.save(administratorUser);
         }
     }
