@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "286dd2fc-d8eb-41fe-97a2-d0201340bed3",
+		"_postman_id": "ffe54dab-8a37-42ef-9673-67bf354709a8",
 		"name": "User Management with JPA and Tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -58,6 +58,35 @@
 					"port": "8095",
 					"path": [
 						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Users by Id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyIkc2VjdXJpdHkuYXV0aG9yaXRpZXMta2V5IjoiQWRtaW5pc3RyYXRvciIsInN1YiI6IjMtLXJvb3RAZ21haWwuY29tIiwiaWF0IjoxNjM2NjUyODE3LCJleHAiOjE2MzY2NjI4MTd9.shJ0bPTjj8o3NCmDbghGSYTBcs9lisPF_vxnXmEqgU8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8095/user1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8095",
+					"path": [
+						"user1"
 					]
 				}
 			},
