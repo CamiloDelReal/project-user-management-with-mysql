@@ -53,7 +53,7 @@ public class UserService implements UserDetailsService {
     private String tokenKey;
     @Value("${security.separator}")
     private String separator;
-    @Value("$security.authorities-key")
+    @Value("${security.authorities-key}")
     private String authoritiesKey;
     @Value("${security.validity}")
     private Long validity;
