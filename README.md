@@ -1,5 +1,5 @@
 # User management using JPA
-Web service to manage users with CRUD and authentication operations, using Spring Boot for the core and JPA as persistence layer. This project can be used with [this web](https://github.com/CamiloDelReal/project-user-management-web)
+Web service to manage users with CRUD and authentication operations, using Spring Boot for the core and JPA as persistence layer. The project can be used with [this web](https://github.com/CamiloDelReal/project-user-management-web)
 
 ### Features
 - Users
