@@ -224,7 +224,7 @@ public class UserManagementControllerClientSideTests extends AbstractTestNGSprin
         UserResponse userResponse = editResponse.getBody();
 
         assertNotNull(userResponse.getId());
-        assertNotEquals(this.userCreatedWithDefaultRole.getId(), userResponse.getId());
+        assertEquals(this.userCreatedWithDefaultRole.getId(), userResponse.getId());
         assertEquals(userEditRequest.getFirstName(), userResponse.getFirstName());
         assertEquals(userEditRequest.getLastName(), userResponse.getLastName());
         assertEquals(userEditRequest.getEmail(), userResponse.getEmail());
