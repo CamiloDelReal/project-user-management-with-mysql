@@ -332,7 +332,14 @@ public class UserManagementControllerServerSideTests extends AbstractTestNGSprin
                 .andExpect(status().isForbidden());
     }
 
-    @Test(dependsOnMethods = {"createUserWithDefaultRole_success", "deleteUser_failByNoCredentials"})
+    @Test(dependsOnMethods = {
+            "createUserWithDefaultRole_success",
+            "editUserToAdminWithUserCredentials_failByNoAdminCredentials",
+            "editUserWithUserCredentials_failByWrongId",
+            "editUserWithUserCredentials_success",
+            "editUser_failByNoUserCredentials",
+            "editUserWithAdminCredentials_success",
+            "deleteUser_failByNoCredentials"})
     public void deleteUserWithUserCredentials_success() throws Exception {
         LoginRequest loginDeleteAndCheckRequest = new LoginRequest(this.userCreatedWithDefaultRole.getEmail(), this.userCreatedWithDefaultRolePassword);
 
